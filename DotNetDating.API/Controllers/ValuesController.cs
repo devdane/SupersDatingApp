@@ -23,6 +23,7 @@ namespace DotNetDating.API.Controllers
         }
 
         // GET api/values
+        [AllowAnonymous] // update this later
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
