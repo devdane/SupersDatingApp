@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
+using DotNetDating.API.Models;
 
-namespace DotNetDating.API.Models
+namespace DotNetDating.API.Dtos
 {
-    public class User
+    public class UserForDetailedDto
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
         public string Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string KnownAs { get; set; }
@@ -19,6 +18,7 @@ namespace DotNetDating.API.Models
         public string Interests { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+        public string PhotoUrl { get; set; }
         public ICollection<Photo> Photos { get; set; }
     }
 }
