@@ -31,19 +31,16 @@ namespace DotNetDating.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            userForRegisterDto.Username = userForRegisterDto.Username.ToLower(); // and strip out periods
+            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
             if (await _repo.UserExists(userForRegisterDto.Username))
                 return BadRequest("Username already exists");
 
-            var userToCreate = new User
-            {
-                Username = userForRegisterDto.Username
-            };
+            var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
-            // return CreatedAtRoute(...) //TODO fix this, that it was made, where to find it
-            return StatusCode(201);
+            var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
+            return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id}, userToReturn);
         }
 
         [HttpPost("login")]
